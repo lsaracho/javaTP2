@@ -35,6 +35,7 @@ public class ServicioBD {
     
         public void crearTablaIngredientes() throws SQLException {
         String createQuery = "CREATE TABLE IF NOT EXISTS ingredientes ("
+                + "codigo int"
                 + "nombreIngrediente varchar(80), "
                 + "cantidad int"
                 + ")";
@@ -87,13 +88,14 @@ public class ServicioBD {
         return st.executeUpdate();
     }
     
-        public int insertIngredientes(String nombreIngrediente, int cantidad) throws SQLException {
-        String insertSQL = "INSERT INTO ingredientes(nombreIngrediente, cantidad)"
+        public int insertIngredientes(int cod, String nombreIngrediente, int cantidad) throws SQLException {
+        String insertSQL = "INSERT INTO ingredientes(codigo, nombreIngrediente, cantidad)"
                         + " VALUES(?, ?, ?)";
         
         PreparedStatement st = this.conexion.prepareStatement(insertSQL);
 
-        st.setString(1, nombreIngrediente);
+        st.setInt(1, cod);
+        st.setString(2, nombreIngrediente);
         st.setInt(3, cantidad);
         
         return st.executeUpdate();
@@ -117,5 +119,9 @@ public class ServicioBD {
         st.setInt(1, cantidad);
         st.setString(2, nombreReceta);
         return st.executeUpdate();
+    }
+
+    Statement createStatement() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

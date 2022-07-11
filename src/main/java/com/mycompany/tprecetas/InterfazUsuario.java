@@ -127,6 +127,11 @@ public class InterfazUsuario extends javax.swing.JFrame {
 
         RadioButtonGroup.add(ButtonBBDD);
         ButtonBBDD.setText("Base de Datos");
+        ButtonBBDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBBDDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,14 +221,30 @@ public class InterfazUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_pathRecetasActionPerformed
 
     private void ButtonAnalisisRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAnalisisRecetasActionPerformed
-      
+        
+         String tipo = null;
+                String rutaRec = null;
+                String rutaIng = null;
+            if (ButtonArchText.isSelected()) {
+                tipo = "TXT";
+                rutaRec = this.pathRecetas.getText();
+                rutaIng = this.pathIngredientes.getText();
+            }
+            if (ButtonBBDD.isSelected()) {
+                tipo = "BD";
+                rutaRec = "recetas";
+                rutaIng = "ingredientes";
+            }
+                
         if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty())){
             OrganizadorRecetas cocina = new OrganizadorRecetas();
             try {
-                this.jTextArea1.setText(cocina.arracarOrganizadorRecetas(this.pathRecetas.getText(),this.pathIngredientes.getText()));
+                this.jTextArea1.setText(cocina.arracarOrganizadorRecetas(tipo, rutaRec, rutaIng));
             } catch (IOException ex) {
                 Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }       catch (Exception ex) {
+                        Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
         }else{
             JOptionPane.showMessageDialog(this,"Completar la ruta de los path");
         }
@@ -291,24 +312,45 @@ public class InterfazUsuario extends javax.swing.JFrame {
 
     private void ButtonAnalisisRecetas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAnalisisRecetas1ActionPerformed
         
+        String tipo = null;
+                String rutaRec = null;
+                String rutaIng = null;
+            if (ButtonArchText.isSelected()) {
+                tipo = "TXT";
+                rutaRec = this.pathRecetas.getText();
+                rutaIng = this.pathIngredientes.getText();
+            }
+            if (ButtonBBDD.isSelected()) {
+                tipo = "BD";
+                rutaRec = "recetas";
+                rutaIng = "ingredientes";
+            }
+        
+        
         if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty())){
             OrganizadorRecetas cocina = new OrganizadorRecetas();
             try {
-                this.jTextArea1.setText(cocina.arracarOrganizadorRecetasDetalle(this.pathRecetas.getText(),this.pathIngredientes.getText()));
+                this.jTextArea1.setText(cocina.arracarOrganizadorRecetasDetalle(tipo,rutaRec,rutaIng));
             } catch (IOException ex) {
+                Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
            
          }else{
             JOptionPane.showMessageDialog(this,"Completar la ruta de los Archivos");
         }
-        
+       
 
     }//GEN-LAST:event_ButtonAnalisisRecetas1ActionPerformed
 
     private void ButtonArchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonArchTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonArchTextActionPerformed
+
+    private void ButtonBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBBDDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonBBDDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,7 +381,7 @@ public class InterfazUsuario extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

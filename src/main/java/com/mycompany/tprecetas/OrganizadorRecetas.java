@@ -24,21 +24,24 @@ public class OrganizadorRecetas {
     * @throws IOException
     * @return valorDevolver
     */
-    public String arracarOrganizadorRecetas(String pathRecetas,String pathIngredientes) throws IOException{
-    
-        ObtenerArchivo archivo = new ObtenerArchivo(pathRecetas, pathIngredientes);
-        listaRecetasEvaluar = archivo.ConvertirPathRecetas();
-        listaIngredientesDisponibles = archivo.ConvertirPathIngredientes();
+   public String arracarOrganizadorRecetas(String tipo,String pathRecetas,String pathIngredientes) throws IOException, Exception{
+        ServicioRecetasFactory srFactory = new ServicioRecetasFactory();
+        ServicioRecetas servicioReceta = srFactory.obtenerServicio(tipo);
+        listaRecetasEvaluar = servicioReceta.obtenerRecetas(pathRecetas);
+        listaIngredientesDisponibles = servicioReceta.obtenerIngredientes(pathIngredientes);
         return this.RecetasPosibles(listaRecetasEvaluar,listaIngredientesDisponibles);
+    
     }
     
-    public String arracarOrganizadorRecetasDetalle(String pathRecetas,String pathIngredientes) throws IOException{
+    public String arracarOrganizadorRecetasDetalle(String tipo, String pathRecetas,String pathIngredientes) throws IOException, Exception{
     
-        ObtenerArchivo archivo = new ObtenerArchivo(pathRecetas, pathIngredientes);
-        listaRecetasEvaluar = archivo.ConvertirPathRecetas();
-        listaIngredientesDisponibles = archivo.ConvertirPathIngredientes();
+        ServicioRecetasFactory srFactory = new ServicioRecetasFactory();
+        ServicioRecetas servicioReceta = srFactory.obtenerServicio(tipo);
+        listaRecetasEvaluar = servicioReceta.obtenerRecetas(pathRecetas);
+        listaIngredientesDisponibles = servicioReceta.obtenerIngredientes(pathIngredientes);
         return this.RecetasPosiblesDetalle(listaRecetasEvaluar,listaIngredientesDisponibles);
-    }
+    
+    }   
 
     public  String RecetasPosibles(ArrayList<Receta> listaRecetasEvaluar, ArrayList<Ingrediente> listaIngredientesDisponibles){
         String valorDevolver ="";

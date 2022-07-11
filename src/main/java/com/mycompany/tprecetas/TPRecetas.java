@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -19,12 +18,8 @@ import java.util.ArrayList;
 public class TPRecetas {
 
     public static void main(String[] args) {
-        ServicioBD servicio = null;
-        try {
-            servicio = new ServicioBD();
-        } catch (SQLException ex) {
-            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        
         
         /****************************************
         * CREA TABLA PRIMERA VEZ
@@ -37,16 +32,12 @@ public class TPRecetas {
         */
         String obtenerPathRecetas = "";
         String ObtenerPathIngredientes = "";
-        OrganizadorRecetas nuevaOrganizador = new OrganizadorRecetas();
-        try {
-            nuevaOrganizador.arracarOrganizadorRecetas(obtenerPathRecetas, ObtenerPathIngredientes);
-        } catch (IOException ex) {
-            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         InterfazUsuario ventana = new InterfazUsuario();
            ventana.show();
         
+       
+              
     }
 
 
