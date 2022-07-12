@@ -225,18 +225,40 @@ public class InterfazUsuario extends javax.swing.JFrame {
          String tipo = null;
                 String rutaRec = null;
                 String rutaIng = null;
+                
             if (ButtonArchText.isSelected()) {
                 tipo = "TXT";
                 rutaRec = this.pathRecetas.getText();
                 rutaIng = this.pathIngredientes.getText();
+               
+                if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty())){
+                    OrganizadorRecetas cocina = new OrganizadorRecetas();
+                    try {
+                        this.jTextArea1.setText(cocina.arracarOrganizadorRecetas(tipo, rutaRec, rutaIng));
+                    } catch (IOException ex) {
+                        Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }       catch (Exception ex) {
+                                Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                }else{
+                    JOptionPane.showMessageDialog(this,"Completar la ruta de los path");
+                }
+                
             }
             if (ButtonBBDD.isSelected()) {
                 tipo = "BD";
                 rutaRec = "recetas";
                 rutaIng = "ingredientes";
-            }
                 
-        if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty())){
+                OrganizadorRecetas cocina = new OrganizadorRecetas();
+                try {
+                    this.jTextArea1.setText(cocina.arracarOrganizadorRecetas(tipo, rutaRec, rutaIng));
+                } catch (Exception ex) {
+                    Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        /*        
+        if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty()) && ButtonArchText.isSelected() ){
             OrganizadorRecetas cocina = new OrganizadorRecetas();
             try {
                 this.jTextArea1.setText(cocina.arracarOrganizadorRecetas(tipo, rutaRec, rutaIng));
@@ -248,29 +270,7 @@ public class InterfazUsuario extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(this,"Completar la ruta de los path");
         }
-      /*
-      String tipo;
-         if (ButtonArchText.isSelected()){
-             tipo = "TXT";
-            } else {
-             tipo = "SQL";
-         }
-         
-        ServicioRecetasFactory srFactory= new ServicioRecetasFactory();
-        try {
-            ServicioRecetas servicioRecetas = srFactory.obtenerServicio(tipo);
-            //llamar al servicio recetas con el TXT
-         // servicioRecetas.
-        } catch (Exception ex) {
-            Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         */
-         
-         /*
-         String resultado="test";
-         jTextArea1.setText("");
-         jTextArea1.append(resultado);
-        */
+      */
     }//GEN-LAST:event_ButtonAnalisisRecetasActionPerformed
 
     private void ButtonPathRecetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPathRecetasActionPerformed

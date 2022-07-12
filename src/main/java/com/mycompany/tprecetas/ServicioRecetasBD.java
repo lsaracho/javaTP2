@@ -4,7 +4,6 @@
  */
 package com.mycompany.tprecetas;
 
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,9 +18,10 @@ import java.util.logging.Logger;
  * @author VTCLUSAR
  */
 public class ServicioRecetasBD extends ServicioRecetas{
+    
     private Connection conexion;
 
-    public ServicioRecetasBD() throws SQLException {
+    public void CrearBD() throws SQLException {
         //sqlite crea el nuevo archivo de la base si no existe
         this.conexion = DriverManager.getConnection("jdbc:sqlite:base_de_prueba.db");
     }
@@ -32,9 +32,9 @@ public class ServicioRecetasBD extends ServicioRecetas{
         
         ArrayList<Ingrediente> ingredientes = new ArrayList<>();
         
-        ServicioBD servicio = null;
+        //ServicioRecetasBD servicio = null;
         try {
-            servicio = new ServicioBD();
+            CrearBD();
         } catch (SQLException ex) {
             Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,9 +65,9 @@ public class ServicioRecetasBD extends ServicioRecetas{
         
         ArrayList<Receta> listaRecetas = new ArrayList<>();
         
-        ServicioBD servicio = null;
+        //ServicioRecetasBD servicio = null;
         try {
-            servicio = new ServicioBD();
+            CrearBD();
         } catch (SQLException ex) {
             Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,7 +80,8 @@ public class ServicioRecetasBD extends ServicioRecetas{
             Statement st = this.conexion.createStatement();
             ResultSet rs = st.executeQuery(query);
             rs.next();
-           
+
+
                  
             while (rs.isAfterLast()) {
                 String nReceta = rs.getString("nombreReceta");
