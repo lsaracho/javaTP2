@@ -19,6 +19,13 @@ import java.util.logging.Logger;
  * @author VTCLUSAR
  */
 public class ServicioRecetasBD extends ServicioRecetas{
+    private Connection conexion;
+
+    public ServicioRecetasBD() throws SQLException {
+        //sqlite crea el nuevo archivo de la base si no existe
+        this.conexion = DriverManager.getConnection("jdbc:sqlite:base_de_prueba.db");
+    }
+
     
     @Override
     public ArrayList obtenerIngredientes(String ing) {
@@ -35,7 +42,7 @@ public class ServicioRecetasBD extends ServicioRecetas{
         try {
 
             String query = "SELECT codigo, nombreIngrediente, cantidad FROM ingredientes";
-            Statement st = servicio.createStatement();
+            Statement st = this.conexion.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
@@ -70,7 +77,7 @@ public class ServicioRecetasBD extends ServicioRecetas{
         try {
 
             String query = "SELECT nombreReceta, codigo, nombreIngrediente, cantidad FROM recetas";
-            Statement st = servicio.conexion.createStatement();
+            Statement st = this.conexion.createStatement();
             ResultSet rs = st.executeQuery(query);
             rs.next();
            
