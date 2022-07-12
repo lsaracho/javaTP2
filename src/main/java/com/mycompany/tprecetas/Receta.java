@@ -23,7 +23,7 @@ public class Receta {
     public Receta(String nombre) {
         this.nombre = nombre;
     }  
-        
+    
    /**
     * Metodo para obtener el nombre de la receta
     * @return nombre

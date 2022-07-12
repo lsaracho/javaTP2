@@ -20,32 +20,32 @@ import java.util.logging.Logger;
  */
 public class ServicioRecetasBD extends ServicioRecetas{
     
-    
-    private Connection conexion;
-
-    public ServicioRecetasBD() throws SQLException {
-        //sqlite crea el nuevo archivo de la base si no existe
-        this.conexion = DriverManager.getConnection("jdbc:sqlite:base_de_prueba.db");
-    }
     @Override
     public ArrayList obtenerIngredientes(String ing) {
         
+    
         
+        ArrayList<Ingrediente> ingredientes = new ArrayList<>();
         
-        ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+        ServicioBD servicio = null;
+        try {
+            servicio = new ServicioBD();
+        } catch (SQLException ex) {
+            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try {
 
-            String query = "SELECT nombreIngrediente, cantidad FROM ingredientes";
-            Statement st = conexion.createStatement();
+            String query = "SELECT codigo, nombreIngrediente, cantidad FROM ingredientes";
+            Statement st = servicio.createStatement();
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
 
-                ingredientes.add(new Ingrediente(rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
+                ingredientes.add(new Ingrediente(rs.getString("codigo"), rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
@@ -56,8 +56,47 @@ public class ServicioRecetasBD extends ServicioRecetas{
     }
 
     @Override
-    public ArrayList obtenerRecetas(String rec) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<Receta> obtenerRecetas(String rec) {
+        
+        ArrayList<Receta> listaRecetas = new ArrayList<>();
+        ServicioBD servicio = null;
+        
+        try {
+            servicio = new ServicioBD();
+        } catch (SQLException ex) {
+            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+              
+        try {
+
+            String query = "SELECT nombreReceta, codigoIngrediente, nombreIngrediente, cantidad FROM recetas";
+            Statement st = servicio.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+           
+                 
+            while (rs.isAfterLast()) {
+                String nReceta = rs.getString("nombre");
+                Receta recetaAux = new Receta(nReceta);
+                ArrayList<Ingrediente> ingredientesAux = new ArrayList<>();
+                
+                while(rs.isAfterLast() && (nReceta.equals(rs.getString("nombreReceta"))) ){
+                    
+                    ingredientesAux.add(new Ingrediente(rs.getString("codigoIngrediente"), rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
+                    rs.next();
+                }
+                
+                recetaAux.setListaIngrediente(ingredientesAux);
+                listaRecetas.add(recetaAux);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listaRecetas;
+        
     }
 
  

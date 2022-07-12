@@ -35,7 +35,7 @@ public class ServicioBD {
     
         public void crearTablaIngredientes() throws SQLException {
         String createQuery = "CREATE TABLE IF NOT EXISTS ingredientes ("
-                + "codigo int"
+                + "codigo varchar(3),"
                 + "nombreIngrediente varchar(80), "
                 + "cantidad int"
                 + ")";
