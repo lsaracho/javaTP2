@@ -18,29 +18,6 @@ public class TPRecetas {
 
     public static void main(String[] args) {
         
-        ServicioBD servicio = null;
-        try {
-            servicio = new ServicioBD();
-        } catch (SQLException ex) {
-            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        /****************************************
-        * CREA TABLA PRIMERA VEZ
-        ****************************************
-        try {
-            servicio.crearTablaRecetas();
-        } catch (SQLException ex) {
-            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-          try {
-            servicio.crearTablaIngredientes();
-        } catch (SQLException ex) {
-            Logger.getLogger(TPRecetas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        
         String obtenerPathRecetas = "";
         String ObtenerPathIngredientes = "";
         

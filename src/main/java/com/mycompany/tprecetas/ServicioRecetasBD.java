@@ -46,7 +46,7 @@ public class ServicioRecetasBD extends ServicioRecetas{
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-
+                System.out.print(rs.getString("nombreIngrediente"));
                 ingredientes.add(new Ingrediente(rs.getString("codigo"), rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
             }
 
@@ -83,12 +83,12 @@ public class ServicioRecetasBD extends ServicioRecetas{
 
 
                  
-            while (rs.isAfterLast()) {
+            while (!rs.isAfterLast()) {
                 String nReceta = rs.getString("nombreReceta");
                 Receta recetaAux = new Receta(nReceta);
                 ArrayList<Ingrediente> ingredientesAux = new ArrayList<>();
                 
-                while(rs.isAfterLast() && (nReceta.equals(rs.getString("nombreReceta"))) ){
+                while(!rs.isAfterLast() && (nReceta.equals(rs.getString("nombreReceta"))) ){
                     
                     ingredientesAux.add(new Ingrediente(rs.getString("codigo"), rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
                     rs.next();

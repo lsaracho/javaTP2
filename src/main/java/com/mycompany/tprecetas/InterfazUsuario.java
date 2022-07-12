@@ -312,36 +312,41 @@ public class InterfazUsuario extends javax.swing.JFrame {
 
     private void ButtonAnalisisRecetas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAnalisisRecetas1ActionPerformed
         
-        String tipo = null;
-                String rutaRec = null;
-                String rutaIng = null;
+            String tipo = null;
+            String rutaRec = null;
+            String rutaIng = null;
             if (ButtonArchText.isSelected()) {
                 tipo = "TXT";
                 rutaRec = this.pathRecetas.getText();
                 rutaIng = this.pathIngredientes.getText();
+                
+            if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty())){
+                OrganizadorRecetas cocina = new OrganizadorRecetas();
+                try {
+                    this.jTextArea1.setText(cocina.arracarOrganizadorRecetasDetalle(tipo,rutaRec,rutaIng));
+                } catch (IOException ex) {
+                    Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            }else{
+               JOptionPane.showMessageDialog(this,"Completar la ruta de los Archivos");
+            }    
+                
             }
             if (ButtonBBDD.isSelected()) {
                 tipo = "BD";
                 rutaRec = "recetas";
                 rutaIng = "ingredientes";
+                
+                OrganizadorRecetas cocina = new OrganizadorRecetas();
+                try {
+                    this.jTextArea1.setText(cocina.arracarOrganizadorRecetasDetalle(tipo,rutaRec,rutaIng));
+                } catch (Exception ex) {
+                    Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        
-        
-        if((!pathIngredientes.getText().isEmpty()) && (!pathRecetas.getText().isEmpty())){
-            OrganizadorRecetas cocina = new OrganizadorRecetas();
-            try {
-                this.jTextArea1.setText(cocina.arracarOrganizadorRecetasDetalle(tipo,rutaRec,rutaIng));
-            } catch (IOException ex) {
-                Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(InterfazUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-         }else{
-            JOptionPane.showMessageDialog(this,"Completar la ruta de los Archivos");
-        }
-       
-
     }//GEN-LAST:event_ButtonAnalisisRecetas1ActionPerformed
 
     private void ButtonArchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonArchTextActionPerformed
