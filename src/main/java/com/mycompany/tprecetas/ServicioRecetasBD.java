@@ -23,8 +23,6 @@ public class ServicioRecetasBD extends ServicioRecetas{
     @Override
     public ArrayList obtenerIngredientes(String ing) {
         
-    
-        
         ArrayList<Ingrediente> ingredientes = new ArrayList<>();
         
         ServicioBD servicio = null;
@@ -59,8 +57,8 @@ public class ServicioRecetasBD extends ServicioRecetas{
     public ArrayList<Receta> obtenerRecetas(String rec) {
         
         ArrayList<Receta> listaRecetas = new ArrayList<>();
-        ServicioBD servicio = null;
         
+        ServicioBD servicio = null;
         try {
             servicio = new ServicioBD();
         } catch (SQLException ex) {
@@ -71,20 +69,20 @@ public class ServicioRecetasBD extends ServicioRecetas{
               
         try {
 
-            String query = "SELECT nombreReceta, codigoIngrediente, nombreIngrediente, cantidad FROM recetas";
-            Statement st = servicio.createStatement();
+            String query = "SELECT nombreReceta, codigo, nombreIngrediente, cantidad FROM recetas";
+            Statement st = servicio.conexion.createStatement();
             ResultSet rs = st.executeQuery(query);
             rs.next();
            
                  
             while (rs.isAfterLast()) {
-                String nReceta = rs.getString("nombre");
+                String nReceta = rs.getString("nombreReceta");
                 Receta recetaAux = new Receta(nReceta);
                 ArrayList<Ingrediente> ingredientesAux = new ArrayList<>();
                 
                 while(rs.isAfterLast() && (nReceta.equals(rs.getString("nombreReceta"))) ){
                     
-                    ingredientesAux.add(new Ingrediente(rs.getString("codigoIngrediente"), rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
+                    ingredientesAux.add(new Ingrediente(rs.getString("codigo"), rs.getString("nombreIngrediente"), rs.getInt("cantidad")));
                     rs.next();
                 }
                 

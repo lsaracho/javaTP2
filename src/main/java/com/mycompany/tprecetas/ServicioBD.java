@@ -25,6 +25,7 @@ public class ServicioBD {
     public void crearTablaRecetas() throws SQLException {
         String createQuery = "CREATE TABLE IF NOT EXISTS recetas ("
                 + "nombreReceta varchar(255), "
+                + "codigo varchar(3),"
                 + "nombreIngrediente varchar(80), "
                 + "cantidad int"
                 + ")";
@@ -121,7 +122,5 @@ public class ServicioBD {
         return st.executeUpdate();
     }
 
-    Statement createStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
 }
